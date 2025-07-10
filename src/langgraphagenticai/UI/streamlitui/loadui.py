@@ -24,12 +24,18 @@ class LoadStreamUI:
             if self.user_control["selected_llm"]=="Groq":
                 model_options=self.config.get_groq_model_options()
                 self.user_control["selected_groq_model"]=st.selectbox("Select model",model_options )
-                self.user_control["GROQ_API_KEY"]=st.session_state["GROQ_API_KEY"]=st.text_input("API key", type="password")
+                self.user_control["GROQ_API_KEY"]=st.session_state["GROQ_API_KEY"]=st.text_input("GROQ API key", type="password")
 
                 if not self.user_control["GROQ_API_KEY"]:
                     st.warning("Please Enter you groq api key to proceed")
 
             self.user_control["usecase_options"]=st.selectbox("Select Usecases",use_cases)
+            
+            if  self.user_control["usecase_options"]=="Chatbot with Tool":
+                os.environ["Tavily_API_Key"]=self.user_control["Tavily_API_Key"]=st.session_state["Tavily_API_KEY"]=st.text_input("TAVILY API key", type="password")
+                
+                if not self.user_control["Tavily_API_Key"]:
+                    st.warning("Please Enter you Tavily api key to proceed")
 
         return self.user_control
 
